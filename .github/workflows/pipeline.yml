@@ -45,7 +45,7 @@ jobs:
 
     - name: Destroy
       id: test2
-      if: ${{ github.event.inputs.Deploy }} == 'false'
+      if: ${{ github.event.inputs.Destroy }} == 'false'
       run: |
         set -e
         echo "Destroy"
