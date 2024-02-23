@@ -54,14 +54,14 @@ jobs:
     
     - name: Deploy
       id: test1
-      if: ${Deploy} == 'true' 
+      if: Deploy == 'true' 
       run: |
         set -e
         echo "Deploy"
 
     - name: Destroy
       id: test2
-      if: ${Destroy} == 'true'
+      if: Destroy == 'true'
       run: |
         set -e
         echo "Destroy"
