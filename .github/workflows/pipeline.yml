@@ -36,16 +36,32 @@ jobs:
       pull-requests: 'write'
 
     steps:
+    - name: Choice
+      id: choice
+      run: |
+        set -e
+        if [[ ${{ github.event.inputs.Deploy }} == 'true' ]]; then
+          $Deploy == true
+        else
+          $Deploy == false
+        fi
+
+        if [[ ${{ github.event.inputs.Destroy }} == 'true' ]]; then
+          $Destroy == true
+        else
+          $Destroy == false
+        fi
+    
     - name: Deploy
       id: test1
-      if: ${{ github.event.inputs.Deploy == 'true' }}
+      if: $Deploy == 'true' 
       run: |
         set -e
         echo "Deploy"
 
     - name: Destroy
       id: test2
-      if: ${{ github.event.inputs.Destroy == 'true' }}
+      if: $Destroy == 'true'
       run: |
         set -e
         echo "Destroy"
