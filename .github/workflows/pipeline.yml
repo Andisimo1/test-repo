@@ -38,12 +38,14 @@ jobs:
     steps:
     - name: Deploy
       id: test1
-      if: steps.TerraformApply.outcome == 'success' && ${{ github.event.inputs.Deploy }} == 'true' && ${{ github.event.inputs.Destroy }} == 'false'
+      if: ${{ github.event.inputs.Deploy }} == 'true' && ${{ github.event.inputs.Destroy }} == 'false'
       run: |
+        set -e
         echo "Deploy"
 
     - name: Destroy
       id: test2
-      if: steps.TerraformApply.outcome == 'success' && ${{ github.event.inputs.Deploy }} == 'false' && ${{ github.event.inputs.Destroy }} == 'true'
+      if: ${{ github.event.inputs.Deploy }} == 'false' && ${{ github.event.inputs.Destroy }} == 'true'
       run: |
+        set -e
         echo "Destroy"
