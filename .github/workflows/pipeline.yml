@@ -41,15 +41,15 @@ jobs:
       run: |
         set -e
         if [[ ${{ github.event.inputs.Deploy }} == 'true' ]]; then
-          $Deploy == true
+          Deploy=true
         else
-          $Deploy == false
+          Deploy=false
         fi
 
         if [[ ${{ github.event.inputs.Destroy }} == 'true' ]]; then
-          $Destroy == true
+          Destroy=true
         else
-          $Destroy == false
+          Destroy=false
         fi
     
     - name: Deploy
