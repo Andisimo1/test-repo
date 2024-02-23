@@ -1,1 +1,49 @@
+name: pipeline
+defaults:
+  run:
+    shell: bash
 
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      Deploy:
+        description: 'Deploy or destroy composer RC1 (Select "true" to Deploy)'
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+      Destroy:
+        description: 'Destroy or destroy composer RC1 (Select "true" to Destroy)'
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'       
+
+jobs:
+  deploy-to-rc:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      actions: 'write'
+      id-token: 'write'
+      pull-requests: 'write'
+
+    steps:
+    - name: Deploy
+      id:test1
+      if: steps.TerraformApply.outcome == 'success' && ${{ github.event.inputs.Deploy }} == 'true' && ${{ github.event.inputs.Destroy }} == 'false'
+      run: |
+        echo "Deploy"
+
+    - name: Destroy
+      id:test1
+      if: steps.TerraformApply.outcome == 'success' && ${{ github.event.inputs.Deploy }} == 'false' && ${{ github.event.inputs.Destroy }} == 'true'
+      run: |
+        echo "Destroy"
