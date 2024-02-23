@@ -38,14 +38,14 @@ jobs:
     steps:
     - name: Deploy
       id: test1
-      if: github.event.inputs.Deploy == 'true'
+      if: ${{ github.event.inputs.Deploy == 'true' }}  
       run: |
         set -e
         echo "Deploy"
 
     - name: Destroy
       id: test2
-      if: github.event.inputs.Destroy == 'false'
+      if: ${{ github.event.inputs.Destroy == 'false' }}
       run: |
         set -e
         echo "Destroy"
